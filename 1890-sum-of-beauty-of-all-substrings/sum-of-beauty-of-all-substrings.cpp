@@ -1,27 +1,25 @@
 class Solution {
 public:
     int beautySum(string s) {
-         int n = s.length();
-        int sum = 0;
-        // Loop over all substrings
+        int n = s.size();
+        int ans = 0;
+
         for (int i = 0; i < n; i++) {
-            unordered_map<char, int> freq;
-
+            vector<int> freq(26, 0);
             for (int j = i; j < n; j++) {
-                // Increase frequency of current character
-                freq[s[j]]++;
+                freq[s[j] - 'a']++;
+                int mx = 0;
+                int mn = INT_MAX;
 
-                int maxi = INT_MIN;
-                int mini = INT_MAX;
-                // Find max and min frequency
-                for (auto it : freq) {
-                    mini = min(mini, it.second);
-                    maxi = max(maxi, it.second);
+                for (int k = 0; k < 26; k++) {
+                    if (freq[k] > 0) {
+                        mx = max(mx, freq[k]);
+                        mn = min(mn, freq[k]);
+                    }
                 }
-                // Add difference to sum
-                sum += (maxi - mini);
+                ans += (mx - mn);
             }
         }
-        return sum;
+        return ans;
     }
 };
