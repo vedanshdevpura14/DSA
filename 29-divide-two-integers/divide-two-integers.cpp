@@ -22,15 +22,16 @@ public:
         d = abs(d);
         
         // Variable to store the answer and sum
-        long long ans = 0, sum = 0;
+        long long ans = 0;
         /* Looping while sum added to divisor is
         less than or equal to divisor */
-        while(sum + d <= n) {
-            
-            // Increment the count
-           ans++;
-           // Update the sum
-           sum += d;
+        while(d <= n) {
+             int count =0;
+            while(n>= d <<(count+1)){ // d << (count+1) = d * 2^(count+1)
+                       count++;
+            }
+            ans+= (1<<count); // (1<<count) = 2^count
+            n = n - (d * (1<<count));
         }
         // Handling overflowing condition
         if(ans > INT_MAX && isPositive) 
